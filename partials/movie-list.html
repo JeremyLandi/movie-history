@@ -44,7 +44,7 @@
 			       <p> <strong>Staring:</strong> {{ movie.actors }}</p>
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>			        
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			      </div>
 			    </div>
 			  </div>
@@ -55,7 +55,7 @@
 	<div class="row " ng-if="displayUnwatchedMovies">
 		<div class="col-md-4 movieList" ng-repeat="movie in unwatchedMovies | orderBy:'movie.title'">
 			<img src="{{ movie.movie.poster }}" alt="">
-			<button class="deleteButton" ng-click="deleteMovie()">Delete</button>
+			<button class="{{movie.movie.key}}" ng-click="delete($event)">Delete</button>
 			<div>
 				<button class="{{ movie.movie.key }}" ng-click="updateRating($event, 1)">1</button>
 				<button class="{{ movie.movie.key }}" ng-click="updateRating($event, 2)">2</button>
@@ -74,7 +74,7 @@
 	<div class="row" ng-if="displayWatchedMovies">
 		<div class="col-md-4 movieList" ng-repeat="movie in watchedMovies | orderBy:'movie.title'">
 			<img src="{{ movie.movie.poster }}" alt="">
-		<button class="deleteButton" ng-click="deleteMovie()">Delete</button>
+		<button class="{{movie.movie.key}}" ng-click="delete($event)">Delete</button>
 			<p>You rated this movie {{movie.movie.rating}} / 10 squares</p>
 		</div>
 	</div>
@@ -82,7 +82,7 @@
 	<div class="row" ng-if="displayFavorites">
 		<div class="col-md-4 movieList" ng-repeat="movie in favoriteMovies | orderBy:'movie.title'">
 			<img src="{{ movie.movie.poster }}" alt="">
-			<button class="deleteButton" ng-click="deleteMovie()">Delete</button>
+			<button class="{{movie.movie.key}}" ng-click="delete($event)">Delete</button>
 			<p>You rated this movie {{movie.movie.rating}} / 10 squares</p>
 			<p>What a great movie! wow</p>
 		</div>
