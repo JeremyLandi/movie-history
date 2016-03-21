@@ -4,9 +4,9 @@ MovieHistory.controller("MovieCtrl", [
   "$scope",
   "movieFactory",
   "post-movies",
-  "update-movie",
+  "delete-movie",
 
-  function ($scope, getMovies, postMovies, updateMovie)  {
+  function ($scope, getMovies, postMovies, deleteMovie)  {
 
     $scope.searchSuccessful = false;
 
@@ -143,11 +143,13 @@ MovieHistory.controller("MovieCtrl", [
       )
     }
 
-    $scope.updateRating = ($event, rating) => {
-      let urlEndpoint = $event.target.className;
-      urlEndpoint += '/movie'
-      console.log('rating', rating);
-      updateMovie(urlEndpoint, rating);
+    // why can't this be es6?
+    $scope.updateRating = function (event, newRating) {
+      let urlEndpoint = event.target.className;
+      urlEndpoint += '/movie';
+      let movieRef = new Firebase(`https://dreamteam-music-hist.firebaseio.com/movies/${urlEndpoint}`);
+      movieRef.update({watched: true});
+      movieRef.update({rating: newRating});
     }
 
     $scope.showWatchedMovies = () => {
@@ -198,6 +200,11 @@ MovieHistory.controller("MovieCtrl", [
         },
         error => console.log(error)
       )
+    }
+
+    $scope.delete = function () {
+      let key = event.target.className;
+      deleteMovie(key);
     }
   }
 ]);
